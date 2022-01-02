@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+
+<item name="windowSplashScreenBackground">#202020</item>
+        
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_baseline_directions_run_24</item>
+
+   <!--
+   post splash screen specifies the theme that would replace the splash
+   screen after it has completed its cycle/interval
+   -->
+
+        <item name="postSplashScreenTheme">@style/Theme.DoMoreEveryDay</item>
+
+
+
+    </style>
+
+</resources>
