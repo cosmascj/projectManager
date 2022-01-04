@@ -8,9 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="splash_color">#1e847f</color>
-    <color name="intro_background_color">#f1e7df</color>
-    <color name="button_color_one">#ecc19c</color>
-    <color name="button_border_color">#1e847f</color>
+    <color name="intro_background_color">#5e3008</color>
+    <color name="button_color_one">#ebab6f</color>
+    <color name="button_border_color">#1E847F</color>
 
     <color name="primary_text_color">#363A43</color>
     <color name="secondary_text_color">#7A8089</color>
@@ -18,4 +18,5 @@
     <color name="colorPrimary">#0C90F1</color>
     <color name="colorPrimaryDark">#0591F8</color>
     <color name="colorAccent">#0C90F1</color>
+    <color name="snackbar_error_color">#a21a1a</color>
 </resources>

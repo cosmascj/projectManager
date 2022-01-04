@@ -2,6 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.DoMoreEveryDay" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
+        <item name="colorControlNormal">#FFFFFF</item>
+
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -11,6 +13,9 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
+        <item name="android:editTextStyle">@style/CustomEditTextStyle</item>
+        <item name="editTextStyle">@style/CustomEditTextStyle</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -27,6 +32,14 @@
     </style>
 
     <style name="Theme.App.Starting.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="CustomEditTextStyle" parent="android:Widget.Material.EditText">
+
+        <item name="android:textColor">#0F0F0F</item>
+        <item name="android:background">@color/white</item>
+        <!-- ... More items here if needed ... -->
+    </style>
+
 
 
 </resources>

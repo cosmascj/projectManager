@@ -1,4 +1,4 @@
-package com.example.domoreeveryday
+package com.example.domoreeveryday.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

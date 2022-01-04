@@ -13,10 +13,16 @@
         <entry key="app/src/main/res/drawable/shape_button_rounded.xml" value="0.262037037037037" />
         <entry key="app/src/main/res/drawable/splash_custom.xml" value="0.262037037037037" />
         <entry key="app/src/main/res/drawable/splash_image.xml" value="0.262037037037037" />
+        <entry key="app/src/main/res/layout-w1240dp/activity_sign_in.xml" value="0.33" />
+        <entry key="app/src/main/res/layout-w936dp/activity_sign_in.xml" value="0.21" />
+        <entry key="app/src/main/res/layout/activity_base.xml" value="0.14387031408308004" />
         <entry key="app/src/main/res/layout/activity_intro.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1503623188405797" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/custom_splash_background.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/dialog_progress.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/my_logo.xml" value="0.18385416666666668" />
       </map>
     </option>

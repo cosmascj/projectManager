@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/intro_background_color"
+    android:background="@color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".IntroActivity">
+    tools:context=".activities.IntroActivity">
 
     <TextView
         android:id="@+id/tv_app_name_intro"
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/intro_screen_title_text_marginTop"
         android:text="@string/app_name"
-        android:textColor="@color/black"
+        android:textColor="@color/intro_background_color"
         android:textSize="@dimen/intro_screen_title_text_size"
         android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
         android:textColor="@color/secondary_text_color"
         android:textSize="@dimen/intro_text_size" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_sign_in_intro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
         android:textColor="@android:color/black"
         android:textSize="@dimen/btn_text_size" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_sign_up_intro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -76,6 +76,6 @@
         android:paddingTop="@dimen/btn_paddingTopBottom"
         android:paddingBottom="@dimen/btn_paddingTopBottom"
         android:text="@string/sign_up"
-        android:textColor="@color/black"
+        android:textColor="@color/intro_background_color"
         android:textSize="@dimen/btn_text_size" />
-</LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

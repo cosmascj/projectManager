@@ -1,9 +1,8 @@
-package com.example.domoreeveryday
+package com.example.domoreeveryday.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.example.domoreeveryday.R
 
 class MainActivity : AppCompatActivity() {
 
