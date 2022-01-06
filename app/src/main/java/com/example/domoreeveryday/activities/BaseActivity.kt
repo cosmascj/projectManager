@@ -20,13 +20,6 @@ private lateinit var progress_text : TextView
     private var doubleBackToExitPressedOnce = false
     private lateinit var mProgressDialog: Dialog
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-       // setContentView(R.layout.activity_base)
-
-//mprogressDialog.tv_progress_text.text =text
-    }
-
     fun showProgressDialog(text: String){
 
        // progress_text = findViewById(R.id.tv_progress_text)

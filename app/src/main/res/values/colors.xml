@@ -19,4 +19,5 @@
     <color name="colorPrimaryDark">#0591F8</color>
     <color name="colorAccent">#0C90F1</color>
     <color name="snackbar_error_color">#a21a1a</color>
+    <color name="profile_white_shade">#e2dfdf</color>
 </resources>

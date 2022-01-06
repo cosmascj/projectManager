@@ -7,6 +7,7 @@ import android.widget.Button
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.domoreeveryday.R
+import com.example.domoreeveryday.firebase.firestore
 import com.example.domoreeveryday.model.SplashViewModel
 
 class IntroActivity : BaseActivity() {
@@ -30,10 +31,18 @@ class IntroActivity : BaseActivity() {
             }
         }
 
-
         setContentView(R.layout.activity_intro)
         btn_signUp = findViewById(R.id.btn_sign_up_intro)
         btn_signIn = findViewById(R.id.btn_sign_in_intro)
+
+        var currentUserID = firestore().getCurrentUserID()
+
+        if (currentUserID.isNotEmpty()){
+            startActivity(Intent(this, MainActivity ::class.java))
+        }else{
+            startActivity(Intent(this, SignUpActivity ::class.java))
+
+        }
 
 
         btn_signUp.setOnClickListener{

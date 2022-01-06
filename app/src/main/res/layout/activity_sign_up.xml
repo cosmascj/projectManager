@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="@string/sign_up"
+            android:text="@string/sign_in"
             android:textColor="@color/primary_text_color"
             android:textSize="@dimen/toolbar_title_text_size"
             android:textStyle="bold" />
@@ -122,6 +122,34 @@
                     android:text="@string/sign_up"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/btn_text_size" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="Already a registered user?"/>
+
+                    <TextView
+                        android:id="@+id/tv_click_here"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:textColor="@color/intro_background_color"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/tv_click_here"
+
+                        android:focusable="true" />
+
+
+
+                </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>

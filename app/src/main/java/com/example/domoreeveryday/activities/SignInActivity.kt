@@ -12,6 +12,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.example.domoreeveryday.R
+import com.example.domoreeveryday.firebase.firestore
+import com.example.domoreeveryday.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -91,8 +93,9 @@ class SignInActivity : BaseActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.i("registration response", "signInWithEmail:success")
-                        val user = auth.currentUser
-                        startActivity(Intent(this, MainActivity::class.java))
+
+                        firestore().signInUser(this)
+                        //startActivity(Intent(this, MainActivity::class.java))
 
                     } else {
                         // If sign in fails, display a message to the user.
@@ -126,5 +129,13 @@ class SignInActivity : BaseActivity() {
         }
     }
 
+
+    fun signInSuccess(user: User){
+        hideProgressDialog()
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+
+
+    }
 
 }
