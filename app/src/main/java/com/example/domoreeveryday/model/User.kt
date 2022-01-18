@@ -5,44 +5,38 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class User(
-    val id: String = "",
-    val name: String = "",
-    val email: String = "",
-    val image: String = "",
+    val id: String? = null,
+    val name: String? = null,
+    val email: String? = null,
+    val image: String? = null,
     val mobile: Long = 0,
-    val fcmToken: String = ""
+    val fcmToken: String? = null
 ) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readString()!!,
-        parcel.readString()!!,
-        parcel.readString()!!,
-        parcel.readString()!!,
-        parcel.readLong(),
-        parcel.readString()!!
+    constructor(source: Parcel) : this(
+        source.readString()!!,
+        source.readString()!!,
+        source.readString()!!,
+        source.readString()!!,
+        source.readLong(),
+        source.readString()!!
     )
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
-        parcel.writeString(name)
-        parcel.writeString(email)
-        parcel.writeString(image)
+    override fun describeContents() = 0
 
-        parcel.writeLong(mobile)
-
-        parcel.writeString(fcmToken)
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeString(id)
+        writeString(name)
+        writeString(email)
+        writeString(image)
+        writeLong(mobile)
+        writeString(fcmToken)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<User> {
-        override fun createFromParcel(parcel: Parcel): User {
-            return User(parcel)
-        }
-
-        override fun newArray(size: Int): Array<User?> {
-            return arrayOfNulls(size)
+    companion object {
+        @JvmField
+        val CREATOR: Parcelable.Creator<User> = object : Parcelable.Creator<User> {
+            override fun createFromParcel(source: Parcel): User = User(source)
+            override fun newArray(size: Int): Array<User?> = arrayOfNulls(size)
         }
     }
 }

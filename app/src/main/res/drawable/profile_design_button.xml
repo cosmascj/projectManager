@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <gradient
+        android:endColor="@color/splash_color"
+        android:startColor="@color/profile_white_shade"
+        android:type="linear"
+        android:angle="360" />
+
+
+    <!-- <stroke android:color="@color/button_border_color"
+         android:width="1dp"/>
+ <solid android:color="@color/white"/>
+ -->
+    <corners android:radius="10dp"/>
+</shape>

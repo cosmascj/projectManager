@@ -20,4 +20,8 @@
     <color name="colorAccent">#0C90F1</color>
     <color name="snackbar_error_color">#a21a1a</color>
     <color name="profile_white_shade">#e2dfdf</color>
+    <color name="task_list_action_color">#F7F6FA</color>
+    <color name="task_list_title_view_bg_color">#F8F8F8</color>
+    <color name="divider_color">#EAEAEA</color>
+
 </resources>

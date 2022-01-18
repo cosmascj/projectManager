@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 * This class is open because the functions here will be reused in other activities
 * */
 open class BaseActivity : AppCompatActivity() {
-private lateinit var progress_text : TextView
+//private lateinit var progress_text : TextView
     private var doubleBackToExitPressedOnce = false
     private lateinit var mProgressDialog: Dialog
 

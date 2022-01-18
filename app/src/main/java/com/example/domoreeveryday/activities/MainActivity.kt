@@ -1,31 +1,47 @@
 package com.example.domoreeveryday.activities
 
+import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import android.widget.Toolbar
-import androidx.constraintlayout.widget.Placeholder
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.domoreeveryday.R
-import com.example.domoreeveryday.firebase.firestore
+import com.example.domoreeveryday.adapters.BoardItemsAdapter
+import com.example.domoreeveryday.databinding.ActivityMainBinding
+import com.example.domoreeveryday.firebase.FireStoreClass
+import com.example.domoreeveryday.model.Board
 import com.example.domoreeveryday.model.User
+import com.example.domoreeveryday.utils.Constants
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var toolbar: androidx.appcompat.widget.Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
-    lateinit var userImage: ImageView
+    private lateinit var fab_button: FloatingActionButton
+    private lateinit var mUserName: String
+    private lateinit var recyclerViewboardsList: RecyclerView
+    private lateinit var noBoardsAvilableText: TextView
+
+    companion object {
+        const val MY_PROFILE_REQUEST_CODE: Int = 11
+        const val CREATE_BOARD_REQUEST_CODE: Int = 12
+    }
+
     lateinit var userName: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,14 +56,51 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 
         setContentView(R.layout.activity_main)
-        firestore().signInUser(this)
+        FireStoreClass().loadUserData(this, true)
 
         toolbar = findViewById(R.id.tool_bar_mainActivity)
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView = findViewById(R.id.nav_view)
+        fab_button = findViewById(R.id.fab_create_board)
         navigationView.setNavigationItemSelectedListener(this)
+        recyclerViewboardsList = findViewById(R.id.rv_boards_list)
+        noBoardsAvilableText = findViewById(R.id.tv_no_boards_available)
 
         setupActionBar()
+
+        fab_button.setOnClickListener {
+            val intent = Intent(this, CreateBoardActivity::class.java)
+            intent.putExtra(Constants.NAME, mUserName)
+            startActivityForResult(intent, CREATE_BOARD_REQUEST_CODE)
+        }
+
+    }
+
+    fun updateBoardListToUI(BoardsList: ArrayList<Board>) {
+
+        hideProgressDialog()
+            if (BoardsList.size > 0){
+                recyclerViewboardsList.visibility = View.VISIBLE
+                noBoardsAvilableText.visibility = View.GONE
+                recyclerViewboardsList.layoutManager = LinearLayoutManager(this)
+                recyclerViewboardsList.setHasFixedSize(true)
+
+                val adapter = BoardItemsAdapter(this, BoardsList)
+                recyclerViewboardsList.adapter = adapter
+
+                adapter.setOnClickListener(object : BoardItemsAdapter.OnClickListener{
+
+                    override fun onClick(position: Int, model: Board) {
+                   var intent = Intent(this@MainActivity, TaskListActivity::class.java)
+                        intent.putExtra(Constants.DOCUMENT_ID,model.documentId)
+                    startActivity(intent)
+                    }
+                })
+
+            }else{
+                recyclerViewboardsList.visibility = View.GONE
+                noBoardsAvilableText.visibility = View.VISIBLE
+            }
 
     }
 
@@ -70,6 +123,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     }
 
+
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
@@ -80,10 +134,32 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == MY_PROFILE_REQUEST_CODE) {
+            FireStoreClass().loadUserData(this)
+        } else if(resultCode == Activity.RESULT_OK && requestCode == CREATE_BOARD_REQUEST_CODE){
+            FireStoreClass().getBoardList(this)
+
+        }
+
+        else {
+            Log.i("Update cancelled", "cancelled")
+        }
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_my_profile -> {
-                startActivity(Intent(this@MainActivity, MyProfileActivity::class.java))
+
+                //To start the activity with a specific request, to update the navigation header with the new details of the user
+                startActivityForResult(
+                    Intent(
+                        this@MainActivity,
+                        MyProfileActivity::class.java
+                    ),
+                    MY_PROFILE_REQUEST_CODE
+                )
             }
             R.id.nav_sign_out -> {
                 FirebaseAuth.getInstance().signOut()
@@ -98,23 +174,34 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         return true
     }
 
-    fun updateNavigationUserDetails(user: User) {
+
+    fun updateNavigationUserDetails(user: User, readBoardsList: Boolean) {
+
+        mUserName = user.name.toString()
 
         // The instance of the header view of the navigation view.
         val headerView = navigationView.getHeaderView(0)
 
         // The instance of the user image of the navigation view.
-       val navUserImage = headerView.findViewById<ImageView>(R.id.iv_user_image)
-           //  userImage = findViewById(R.id.iv_user_image)
-        userName = findViewById(R.id.tv_username)
+        val navUserImage = headerView.findViewById<ImageView>(R.id.iv_user_image)
+        //  userImage = findViewById(R.id.iv_user_image)
 
         Glide
             .with(this)
             .load(user.image)
             .centerCrop()
-            .placeholder(R.drawable.ic_graph_svg)
+            .placeholder(R.drawable.ic_user_place_holder)
             .into(navUserImage);
 
-        userName.text = user.name
+
+       val navUserName= headerView.findViewById<TextView>(R.id.tv_username)
+
+        navUserName.text = user.name
+
+        if(readBoardsList){
+            showProgressDialog(resources.getString(R.string.in_progress_text))
+            FireStoreClass().getBoardList(this)
+        }
     }
+
 }
