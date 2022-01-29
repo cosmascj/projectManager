@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><!--START-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group
+        android:checkableBehavior="all"
+        android:enabled="true"
+        android:visible="true">
+
+
+        <item
+            android:id="@+id/action_add_member"
+            android:orderInCategory="100"
+            android:title="@string/add_member"
+            android:icon="@drawable/ic_baseline_add_24"
+            android:iconTint="@color/black"
+            app:showAsAction="always" />
+    </group>
+
+</menu>

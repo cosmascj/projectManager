@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single"
-        android:visible="true"
-        >
+    <group
+        android:checkableBehavior="single"
+        android:visible="true">
         <item
             android:id="@+id/nav_my_profile"
+            android:checked="true"
             android:icon="@drawable/ic_nav_circle_placeholder"
-android:checked="true"
             android:title="@string/nav_my_profile" />
 
         <item

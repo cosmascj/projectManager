@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.DoMoreEveryDay" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorControlNormal">#FFFFFF</item>
+        <item name="colorControlNormal">@color/teal_200</item>
 
-        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimary">#1e847f</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -40,6 +40,8 @@
         <item name="android:background">@color/white</item>
         <!-- ... More items here if needed ... -->
     </style>
+    <style name="Theme.App.Starting.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.App.Starting.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 

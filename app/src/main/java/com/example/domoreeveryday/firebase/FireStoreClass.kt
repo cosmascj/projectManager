@@ -94,13 +94,17 @@ class FireStoreClass {
 
     }
 
-    fun getBoardDetails(activity: TaskListActivity, documentId: String){
+    fun getBoardDetails(activity: TaskListActivity, documentId: String) {
         mfirestore.collection(Constants.BOARD)
             .document(documentId)
             .get()
             .addOnSuccessListener { document ->
                 Log.i(activity.javaClass.simpleName, document.toString())
-                activity.boardDetails(document.toObject(Board::class.java)!!)
+                val board = document.toObject(Board::class.java)
+                if (board != null) {
+                    board.documentId = document.id
+                }
+                activity.boardDetails(board!!)
 
 
             }.addOnFailureListener { e ->
@@ -148,4 +152,91 @@ class FireStoreClass {
             }
 
     }
+
+    fun addUpdateTaskList(activity: Activity, board: Board) {
+        val taskListHashMap = HashMap<String, Any>()
+        taskListHashMap[Constants.TASK_LIST] = board.taskList
+
+        mfirestore.collection(Constants.BOARD)
+            .document(board.documentId)
+            .update(taskListHashMap)
+            .addOnSuccessListener {
+                Log.e(activity.javaClass.simpleName, " Task List updated Successfully")
+
+                if (activity is TaskListActivity)
+                    activity.updateTaskListSuccess()
+                else if (activity is CardDetailsActivity)
+                    activity.updateTaskListSuccess()
+
+            }.addOnFailureListener { exception ->
+                if (activity is TaskListActivity)
+                    activity.hideProgressDialog()
+                else if (activity is CardDetailsActivity)
+                    activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName, " Task list update failed", exception)
+            }
+
+    }
+
+    fun getAssignedMemberListDetails(activity: Activity, assignedTo: ArrayList<String>) {
+        mfirestore.collection(Constants.USERS)
+            .whereIn(Constants.ID, assignedTo) //wherein constants.id equals assignedto
+            .get()
+            .addOnSuccessListener { document ->
+                Log.e(activity.javaClass.simpleName, document.documents.toString())
+
+                var userList: ArrayList<User> = ArrayList()
+
+                for (i in document.documents) {
+                    val user = i.toObject(User::class.java)!!
+                    userList.add(user)
+                }
+                if (activity is MembersActivity)
+                    activity.setUpMembersListInUI(userList)
+                else if (activity is TaskListActivity)
+                    activity.boardMemberDetailsList(userList)
+            }.addOnFailureListener { e ->
+                if (activity is MembersActivity)
+                    activity.hideProgressDialog()
+                else if (activity is TaskListActivity)
+                    activity.hideProgressDialog()
+                Log.e(activity.javaClass.simpleName, "Error while creating member", e)
+            }
+
+
+    }
+
+    fun getMemberDetails(activity: MembersActivity, email: String) {
+        mfirestore.collection(Constants.USERS)
+            .whereEqualTo(Constants.EMAIL, email)
+            .get()
+            .addOnSuccessListener {
+
+                    document ->
+                if (document.documents.size > 0) {
+                    val user = document.documents[0].toObject(User::class.java)!!
+                    activity.memberDetails(user)
+                } else {
+                    activity.hideProgressDialog()
+                    activity.showSnackBar("No such member found")
+                }
+            }
+
+
+    }
+
+
+    fun assignMemberToBoard(activity: MembersActivity, board: Board, user: User) {
+
+        val assignedToHashMap = HashMap<String, Any>()
+        assignedToHashMap[Constants.ASSINGED_TO] = board.assignedTo
+
+        mfirestore.collection(Constants.BOARD)
+            .document(board.documentId)
+            .update(assignedToHashMap)
+            .addOnSuccessListener {
+                activity.memberAssignedSuccess(user)
+            }
+    }
+
 }

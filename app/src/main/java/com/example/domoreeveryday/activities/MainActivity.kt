@@ -56,7 +56,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 
         setContentView(R.layout.activity_main)
-        FireStoreClass().loadUserData(this, true)
 
         toolbar = findViewById(R.id.tool_bar_mainActivity)
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -67,6 +66,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         noBoardsAvilableText = findViewById(R.id.tv_no_boards_available)
 
         setupActionBar()
+        FireStoreClass().loadUserData(this, true)
 
         fab_button.setOnClickListener {
             val intent = Intent(this, CreateBoardActivity::class.java)

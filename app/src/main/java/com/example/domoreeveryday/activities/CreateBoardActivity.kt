@@ -43,6 +43,7 @@ class CreateBoardActivity : BaseActivity() {
         createBtn= findViewById(R.id.btn_create)
 
         if(intent.hasExtra(Constants.NAME)){
+            // please initialize musername
             mUserName = intent.getStringExtra(Constants.NAME).toString()
         }
 
@@ -138,7 +139,7 @@ showProgressDialog(resources.getString(R.string.in_progress_text))
             storageRef.putFile(mSelectedImageFileUri!!)
                 .addOnSuccessListener { taskSnapshot ->
                     Log.i(
-                        "image upload reference",
+                        "Firebase Boardimage uri",
                         taskSnapshot.metadata!!.reference!!.downloadUrl.toString()
                     )
 
@@ -166,8 +167,9 @@ showProgressDialog(resources.getString(R.string.in_progress_text))
 
         var board = Board(
             boardName.text.toString(),
-            mUserName,
+
             mBoardImageUri,
+            mUserName,
             assignedUserArrayList)
 
         FireStoreClass().createBoard(this, board)
